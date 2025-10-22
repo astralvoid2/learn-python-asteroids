@@ -12,9 +12,11 @@ def main():
     # Initialize pygame
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        
+    clock = pygame.time.Clock()
+
     # Main game loop
     running = True
+    dt = 0  # delta time between frames in seconds
     while running:
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
@@ -28,6 +30,8 @@ def main():
         
         # flip() the display to put your work on screen
         pygame.display.flip()  
+        
+        dt = clock.tick(60) / 1000  # limits FPS to 60 and convert to seconds
     
     # done! time to quit.
     pygame.quit()
