@@ -3,6 +3,10 @@
 # throughout this file
 import pygame
 from constants import *
+from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     print("Starting Asteroids!")
@@ -17,6 +21,26 @@ def main():
     # Main game loop
     running = True
     dt = 0  # delta time between frames in seconds
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
+    
+    
+    # add groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+    shot_group = pygame.sprite.Group()
+    
+    # set containers for sprites
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
+    Shot.containers = (shot_group, updatable, drawable)
+    
+    # create player
+    player_ship = Player(x, y)
+    asteroid_field = AsteroidField()
+    
     while running:
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
@@ -27,6 +51,18 @@ def main():
         screen.fill((0, 0, 0))  # Fill the screen with black
         
         # RENDER YOUR GAME HERE
+        updatable.update(dt)
+        for asteroid in asteroids:
+            if player_ship.collide(asteroid):
+                print("Game over!")
+                running = False
+            for bullet in shot_group:
+                if bullet.collide(asteroid):
+                    asteroid.split()
+                    bullet.kill()
+                
+        for sprite in drawable:
+            sprite.draw(screen) 
         
         # flip() the display to put your work on screen
         pygame.display.flip()  
