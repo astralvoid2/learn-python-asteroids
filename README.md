@@ -18,11 +18,11 @@ A basic imple,mentation of the classic Asteroids game using Python and Pygame.  
     On Windows (PowerShell): ```powershell -c "irm https://astral.sh/uv/install.psd1 | iex"```
     
 ## Running the Game
-
 This project uses uv to manage dependencies and run the game in an isolated virtual environment. Assuming dependencies (like Pygame) are listed in a pyproject.toml or requirements.txt file (if not, add pygame via uv add pygame and commit the updated files).
 
 To launch the game, run:
-```launch:  uv run main.py
+```
+uv run main.py
 ```
 
 If you are using a traditional virtual environment, activate it and run:
