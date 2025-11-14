@@ -7,6 +7,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+from logger import log_state
 
 def main():
     print("Starting Asteroids!")
@@ -42,6 +43,8 @@ def main():
     asteroid_field = AsteroidField()
     
     while running:
+        # call logger
+        log_state()
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
         for event in pygame.event.get():
